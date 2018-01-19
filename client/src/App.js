@@ -1,7 +1,11 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
 import './App.css';
 import io from 'socket.io-client';
+
+import Nav from "./components/Nav";
+import PlayerOne from "./components/playerOne";
+import PlayerTwo from "./components/playerTwo";
+
 const socket = window.io();
 // let socket = io('http://localhost:3001');
 
@@ -27,7 +31,7 @@ class App extends Component {
   }
 
   messageRecieve = msg =>{
-    
+
     this.setState({chat:[...this.state.chat, msg ]});
     console.log(this.state.chat);
     console.log("is this working?")
@@ -43,24 +47,10 @@ class App extends Component {
 
   render() {
     return (
-      <div>
-        <p>{this.state.message}</p>
-        <ul id="messages">
-          {this.state.chat.map(chat =>{
-            return (<li key={chat}>{chat}</li>)
-          })
-          }
-        </ul>
-        <form action="">
-          <input 
-          id="m" 
-          value = {this.state.message}
-          autocomplete="off"
-          onChange = {this.inputChange}
-          // value = {this.state.message}
-          />
-          <button onClick={this.sendMessage}>Send</button>
-        </form>
+      <div className="App">
+        <Nav />
+        <PlayerOne />
+        {/* <PlayerTwo /> */}
       </div>
     );
   }

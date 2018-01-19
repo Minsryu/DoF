@@ -1,0 +1,137 @@
+p {
+  font-family: 'Raleway', sans-serif;
+  text-align: center;
+  background: #ffffff;
+}
+
+
+
+.p1-user-profile {
+  position: absolute;
+  max-width: 257px; /* set later in media Q */
+  max-height: 368px; /* set later in media Q */
+  /* display: table; */
+  top: 20%;
+  bottom: 20%;
+  left: 10%;
+	width: 25%;
+  height: 85%;
+  margin-bottom: 10%;
+  background: #f0f0f0;
+  border-radius: .3em;
+
+  -webkit-transition-duration: 0.4s;
+  -moz-transition-duration: 0.4s;
+  -o-transition-duration: 0.4s;
+  transition-duration: 0.4s;
+
+}
+
+/*  */
+.p1-user-profile .username {
+  position: relative;
+  display: inline-block;
+  bottom: 3em;
+  color: #658585;
+  font-size: 1.53em;
+  font-family: "Coda", sans-serif;
+  font-weight: bold;
+  max-width: 100%;
+}
+
+/* Number of wins */
+.p1-user-profile .bio {
+  position: relative;
+  bottom: 4.5em;
+  left: 2em;
+  color: #e76043;
+}
+
+.p1-user-profile > img.avatar {
+  position: relative;
+  margin-top: 5%;
+  height: 6.23em;
+  border-radius: 18em;
+}
+
+.p1-user-profile .actions {
+  margin: 0 auto;
+  list-style: none;
+}
+
+img.icon {
+  vertical-align: center;
+  margin-left: 0.4em;
+  width: 20%;
+}
+
+/* HP and Charge */
+.p1-user-profile ul.data {
+	margin: 0 auto;
+	height: 4em;
+  background: #4eb6b6;
+  /* text-align: center; */
+  /* border-radius: 0 0 .3em .3em; */
+  list-style: none;
+}
+.p1-user-profile li.data {
+	margin: 0 auto;
+  width: 33.33334%;
+  text-align: center;
+}
+
+.p1-user-profile span {
+	font-family: "varela round", sans-serif;
+	color: #e3eeee;
+  white-space: nowrap;
+  font-size: 1.27em;
+  font-weight: bold;
+}
+
+/* Hover */
+
+.p1-user-profile:hover {
+  box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+}
+.p1-user-profile span:hover {
+  color: #daebea;
+}
+
+/* HP Bar */
+.balanceBar {
+  margin: 0 auto;
+  width: 90%;
+  height: 1.9em;
+  border: 2px #ccc solid;
+}
+
+.balanceSection {
+  display: inline-block;
+  height: 20px;
+  font-size: 10pt;
+  vertical-align: top;
+  text-align: center;
+}
+
+.balanceSection p {
+  margin: 0;
+  padding: 3px;
+}
+
+.damageTaken {
+  background-color: red;
+  transition: width 1s ease-in-out;
+}
+
+/* .damage {
+  background-color: yellow;
+  transition: width 1s ease-in-out;
+} */
+
+.left {
+  background-color: lightgreen;
+  transition: width 1s ease-in-out;
+}
+
+
+/* Breakpoints at W: 755, 1200 */

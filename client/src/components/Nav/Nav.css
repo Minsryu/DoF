@@ -1,0 +1,65 @@
+.nav {
+  width: 100%;
+  text-align: center;
+  font-size: 6rem;
+  font-family: 'Raleway',sans-serif;
+  font-weight: 800;
+  color: #2A77AE;
+  line-height: 72px;
+  text-transform: uppercase;
+}
+
+.navButton {
+  display: inline-block;
+  font-family: 'Raleway',sans-serif;
+  font-weight: 400;
+  margin: 0.3em;
+  padding: .80em 3em;
+  overflow: hidden;
+  text-decoration: none;
+  text-transform: uppercase;
+  border-radius: 3px;
+  -webkit-transition: 0.3s;
+  -moz-transition: 0.3s;
+  -ms-transition: 0.3s;
+  -o-transition: 0.3s;
+  transition: 0.3s;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.5);
+  border: none;
+  font-size: 1em;
+  text-align: center;
+  background-color: #03A9F4;
+  color: white;
+}
+
+.navButton:hover {
+  box-shadow: 1px 6px 15px rgba(0,0,0,0.5);
+}
+
+.navButton:focus {
+  outline: 0;
+}
+
+.blue {
+  background-color: #03A9F4;
+  position: absolute !important;
+  top: 10px !important;
+  right: 5% !important;
+  color: white;
+}
+
+.login {
+  background-color: #03A9F4;
+  position: absolute !important;
+  top: 10px !important;
+  right: 80% !important;
+  color: white;
+}
+
+.match{
+  background-color: #03A9F4;
+  position: absolute !important;
+  top: 10px !important;
+  right: 60% !important;
+  color: white;
+}
