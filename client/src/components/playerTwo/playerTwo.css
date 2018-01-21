@@ -1,72 +1,91 @@
 p {
-  font-family: 'Raleway', sans-serif;
-  text-align: center;
-  background: #ffffff;
+  font-family: "Coda", sans-serif;
+  font-weight: bold;
 }
+
+.barText {
+  padding-top: 5%;
+  padding-bottom: 2%;
+  padding-left: 60%;
+  text-align: justify;
+}
+
 
 .p2-user-profile {
   position: absolute;
-  display: table;
-  top: -25%;
-  bottom: -25%;
-  left: -10%;
-	width: 19em;
-  height: 25em;
-  background: #f0f0f0;
+  max-width: 257px; /* set later in media Q */
+  max-height: 368px; /* set later in media Q */
+  /* display: table; */
+  top: 20%;
+  bottom: 20%;
+  left: 65%;
+	width: 25%;
+  height: 85%;
+  margin-bottom: 10%;
+  background: #f0f0f0f0;
   border-radius: .3em;
+
+  -webkit-transition-duration: 0.4s;
+  -moz-transition-duration: 0.4s;
+  -o-transition-duration: 0.4s;
+  transition-duration: 0.4s;
+
 }
 
+/*  */
 .p2-user-profile .username {
-  margin: auto;
-  margin-left: -50%;
+  position: relative;
+  display: inline-block;
+  bottom: 3.9em;
+  right: 3%;
   color: #658585;
   font-size: 1.53em;
   font-family: "Coda", sans-serif;
   font-weight: bold;
+  max-width: 100%;
 }
-.p2-user-profile  .bio {
-  margin: auto;
-  display: inline-block;
-  margin-right: 65%;
+
+/* Number of wins */
+.p2-user-profile .bio {
+  position: relative;
+  bottom: 5.9em;
+  right: 2%;
   color: #e76043;
-  font-family: "varela round", sans-serif;
 }
-.p2-user-profile > .description {
-  margin: auto;
-  margin-top: 1.35em;
-  margin-right: 4.43em;
-  width: 14em;
-  color: #c0c5c5;
-  font-size: .87em;
-  font-family: "varela round", sans-serif;
-}
+
 .p2-user-profile > img.avatar {
-  margin-right: 55%;
+  position: relative;
   margin-top: 5%;
+  margin-left: 50%;
   height: 6.23em;
-  width: 6.23em;
   border-radius: 18em;
 }
 
+.p2-user-profile .actions {
+  margin: 0 auto;
+  list-style: none;
+  padding-top: 10%;
+}
+
+img.icon {
+  vertical-align: center;
+  margin-left: 0.4em;
+  width: 20%;
+}
+
+/* HP and Charge */
 .p2-user-profile ul.data {
-	margin: 2em auto;
-	height: 3.70em;
+	margin: 0 auto;
+	height: 4em;
   background: #4eb6b6;
-  text-align: center;
-  border-radius: 0 0 .3em .3em;
+  /* text-align: center; */
+  /* border-radius: 0 0 .3em .3em; */
   list-style: none;
 }
 .p2-user-profile li.data {
 	margin: 0 auto;
-  padding: 1.30em;
   width: 33.33334%;
   text-align: center;
-}
-.p2-user-profile .actions {
-  position: relative;
-  padding-left: 60%;
-  width: 25%;
-  list-style: none;
 }
 
 .p2-user-profile span {
@@ -76,6 +95,71 @@ p {
   font-size: 1.27em;
   font-weight: bold;
 }
+
+/* Hover */
+
+.p2-user-profile:hover {
+  box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+}
 .p2-user-profile span:hover {
   color: #daebea;
 }
+
+/* HP Bar */
+.p2_balanceBar {
+  margin: 0 auto;
+  width: 90%;
+  height: 1.9em;
+  border: 2px #ccc solid;
+}
+.p2_balanceSection {
+  display: inline-block;
+  height: 100%;
+  font-size: 10pt;
+  vertical-align: top;
+  text-align: center;
+}
+.p2_balanceSection p {
+  margin: 0;
+  padding: 3px;
+}
+.p2_damageTaken {
+  background-color: red;
+  transition: width 1s ease-in-out;
+}
+
+.left {
+  background-color: lightgreen;
+  transition: width 1s ease-in-out;
+}
+
+/* Charge bar */
+.p2_currentChargeSection {
+  display: inline-block;
+  height: 100%;
+  font-size: 10pt;
+  vertical-align: top;
+  text-align: center;
+}
+.p2_currentChargeBar {
+  margin: 0 auto;
+  width: 90%;
+  height: 1.9em;
+  border: 2px #ccc solid;
+}
+.p2_currentChargeSection p {
+  margin: 0;
+  padding: 3px;
+}
+.p2_chargeUsed {
+  background-color: yellow;
+  transition: width 0.1s ease-in-out;
+}
+.right {
+  background-color: #f0f0f0;
+  transition: width 0.1s ease-in-out;
+}
+
+
+
+/* Breakpoints at W: 790, 1200 */

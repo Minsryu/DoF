@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import './App.css';
-import io from 'socket.io-client';
+// uncomment this before merge....
+// import io from 'socket.io-client';
 
 import Nav from "./components/Nav";
 import PlayerOne from "./components/playerOne";
@@ -50,7 +51,7 @@ class App extends Component {
       <div className="App">
         <Nav />
         <PlayerOne />
-        {/* <PlayerTwo /> */}
+        <PlayerTwo />
       </div>
     );
   }
