@@ -1,0 +1,115 @@
+.responsive-table {
+  border: 0;
+  margin: 0 auto;
+  justify-content: center;
+  align-items: center;
+}
+
+h1 {
+  margin-top: 5rem;
+  margin-left: 45%;
+}
+
+table {
+  max-width: 50rem;
+  border-collapse: collapse;
+  margin: 0;
+  padding-top: 2rem;
+  background-color: white;
+}
+
+th{
+  text-align: left;
+}
+
+th {
+  border: 1px solid #dfdfdf;
+  padding: 1rem;
+}
+
+td{
+  border: 1px solid #dfdfdf;
+  padding: 1rem;
+}
+
+/* Responsive table part */
+@media screen and (max-width: 600px) {
+  .responsive-table {
+    border: 0;
+  }
+
+    thead {
+      display: none;
+    }
+
+    tbody {
+      background-color: #efefef;
+    }
+
+    th {
+      padding: .5rem;
+      background-color: white;
+    }
+    td {
+      padding: .5rem;
+      background-color: white;
+    }
+
+    tr{
+      border-bottom: 1px solid #ddd;
+      display: block;
+      margin-bottom: 2rem;
+    } &:last-of-type {
+        margin-bottom: initial;
+      }
+
+    td{
+      display: block;
+      border-bottom: none;
+      text-align: right;
+    }
+
+    td:before {
+      content: attr(data-label);
+      float: left;
+      font-weight: bold;
+    }
+}
+
+/* Dat button */
+.center {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.button{
+  display: inline-block;
+  padding: 15px;
+  margin-right: 5px;
+  height: 50px;
+  min-width: 100px;
+  border: none;
+  outline: none;
+  color: white;
+  font-family: inherit;
+  font-weight: 400;
+  font-size: 20px;
+  border-radius: 3px;
+  box-shadow: 0 5px 0px darken(#348AA7, 0%);
+  border-bottom: 2px solid darken(#348AA7, 3%);
+}
+
+.button:hover{
+  background: darken(#348AA7, 5%);
+  box-shadow: 0 4px 1px darken(#348AA7, 5%);
+  border-bottom: 2px solid darken(#348AA7, 8%);
+  transition: all 0.1s ease-in;
+}
+
+.buttton:active{
+  transform:translateY(4px);
+  border-bottom-width: 2px;
+  box-shadow: none;
+}

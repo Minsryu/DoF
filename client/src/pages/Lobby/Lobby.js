@@ -2,6 +2,8 @@ import React, { Component } from "react";
 
 import { Link } from "react-router-dom";
 
+import WaitingRoom from "../../components/WaitingRoom";
+
 
 class Lobby extends Component {
   state = {
@@ -12,7 +14,7 @@ class Lobby extends Component {
       <div>
         <br/>
         <br/>
-        <h1>Lobby</h1>
+        <WaitingRoom />
       </div>
     );
   }
