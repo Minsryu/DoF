@@ -1,10 +1,10 @@
 import React, { Component } from "react";
 import "./playerOne.css";
 import "../effects.css"
-import shield from '../../shield.svg';
-import pCharge from '../../refresh-button.svg';
-import shoot from '../../shoot.svg';
-import ult from '../../diamond.svg';
+import shield from '../../svg/shield.svg';
+import pCharge from '../../svg/refresh-button.svg';
+import shoot from '../../svg/shoot.svg';
+import ult from '../../svg/diamond.svg';
 
 //NOTES
 // pCharge / Pcharge is Potential Charge...

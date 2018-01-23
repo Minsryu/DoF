@@ -1,60 +1,32 @@
-import React, { Component } from 'react';
+import React from 'react';
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+
 import './App.css';
 // uncomment this before merge....
 // import io from 'socket.io-client';
 
+// Import Pages
+import Lobby from "./pages/Lobby";
+import Login from "./pages/Login";
+import Room from "./pages/Room";
+import NoMatch from "./pages/NoMatch";
+// Import that NAV BBY.
 import Nav from "./components/Nav";
-import PlayerOne from "./components/playerOne";
-import PlayerTwo from "./components/playerTwo";
 
 const socket = window.io();
 // let socket = io('http://localhost:3001');
 
-class App extends Component {
-
-  state = {
-    message:"",
-    chat: []
-  }
-
-  inputChange = event => {
-    // Getting the value and name of the input which triggered the change
-
-    // Updating the input's state
-    this.setState({
-      message: event.target.value
-    });
-  }
-
-  componentDidMount(){
-    socket.on('chat message',this.messageRecieve);
-    console.log("this is working#1");
-  }
-
-  messageRecieve = msg =>{
-
-    this.setState({chat:[...this.state.chat, msg ]});
-    console.log(this.state.chat);
-    console.log("is this working?")
-  }
-
-  sendMessage = event =>{
-    event.preventDefault();
-    console.log(this.state.message);
-    socket.emit('chat message',this.state.message);
-    this.setState({message:""});
-  }
-
-
-  render() {
-    return (
-      <div className="App">
-        <Nav />
-        <PlayerOne />
-        <PlayerTwo />
-      </div>
-    );
-  }
-}
+const App = () =>
+  <Router>
+    <div>
+      <Nav />
+      <Switch>
+        <Route exact path="/" component={Login} />
+        <Route exact path="/lobby" component={Lobby} />
+        <Route exact path="/room" component={Room} />
+        <Route component={NoMatch} />
+      </Switch>
+    </div>
+  </Router>;
 
 export default App;

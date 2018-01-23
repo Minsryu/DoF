@@ -41,6 +41,28 @@ overflow:hidden;
   -o-transform:rotate(-20deg);
 }
 
+.p2_shoot{
+  -webkit-transition-duration: 0.5s;
+  -moz-transition-duration: 0.5s;
+  -o-transition-duration: 0.5s;
+  transition-duration: 0.5s;
+
+  -webkit-transition-property: -webkit-transform;
+  -moz-transition-property: -moz-transform;
+  -o-transition-property: -o-transform;
+  transition-property: transform;
+
+  overflow:hidden;
+}
+
+.p2_shoot:hover {
+  -webkit-transform:rotate(20deg);
+  -moz-transform:rotate(20deg);
+  -o-transform:rotate(20deg);
+}
+
+
+
 /* shield */
 .shield{
   -webkit-transition-duration: 0.8s;

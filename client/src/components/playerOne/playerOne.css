@@ -36,7 +36,8 @@ p {
 .p1-user-profile .username {
   position: relative;
   display: inline-block;
-  bottom: 3em;
+  bottom: 3.9em;
+  left: 9%;
   color: #658585;
   font-size: 1.53em;
   font-family: "Coda", sans-serif;
@@ -47,16 +48,19 @@ p {
 /* Number of wins */
 .p1-user-profile .bio {
   position: relative;
-  bottom: 4.5em;
-  left: 2em;
+  bottom: 5.9em;
+  left: 2%;
   color: #e76043;
 }
 
 .p1-user-profile > img.avatar {
   position: relative;
   margin-top: 5%;
+  margin-right: 50%;
   height: 6.23em;
   border-radius: 18em;
+  max-width: 200px;
+  max-height: 200px;
 }
 
 .p1-user-profile .actions {
@@ -67,7 +71,7 @@ p {
 
 img.icon {
   vertical-align: center;
-  margin-left: 0.4em;
+  margin-right: 0.4em;
   width: 20%;
 }
 

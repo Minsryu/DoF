@@ -59,6 +59,8 @@ p {
   margin-left: 50%;
   height: 6.23em;
   border-radius: 18em;
+  max-width: 200px;
+  max-height: 200px;
 }
 
 .p2-user-profile .actions {
