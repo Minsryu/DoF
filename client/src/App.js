@@ -2,17 +2,28 @@ import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
 import io from 'socket.io-client';
-const socket = window.io();
-// let socket = io('http://localhost:3001');
+
+console.log(window.location);
+// 
+// const socket = widow.io();
+
+// const socket = io.connect("http://localhost:3001")
+
+const socket = (window.location.href.indexOf("heroku")!==-1) ? window.io() : io.connect("http://localhost:3001");
+
+// console.log(socket);
 
 class App extends Component {
 
   state = {
+    name:"house",
     message:"",
     chat: [],
     player1:"",
     player2:"",
-    result:"Pending Choices"
+    result:"Waiting Results",
+    lobbyList:{},
+    roomList:{}
   }
 
   choice = {
@@ -20,10 +31,49 @@ class App extends Component {
     player2: ""
   }
 
+  room = {
+    roomName:"",
+  }  
+
   componentDidMount(){
+    //Every time there is a update on 'channel chat' 
+    //message message Recieve funtion will run with data that was sent
+    socket.on("connect",()=>{
+      console.log("you have been connected!");
+
+      socket.emit('Login',"guestuser");
+      socket.on('user name', (msg)=>{
+        this.setState({name:msg});
+        console.log("clent: "+msg);
+      })
+
+      console.log();
+
+    })
+
+    socket.on('room list',(msg)=>{
+      this.setState(prevState =>({
+        roomList:{
+          ...prevState.roomList,
+          [msg]:msg
+        }
+      }))
+    })
+
+    socket.on('new room', (msg)=>{
+      this.room.roomName = msg;
+      console.log("new room: "+ msg);
+      socket.emit('switch',msg);
+    })
+
+    socket.on('lobby list', (msg) =>{
+      this.setState({lobbyList:msg});
+    })
+
     socket.on('chat message',this.messageRecieve);
   }
 
+  //function to compare actions taken by both users 
   checkAction () {
 
     var action1 = this.choice.player1;
@@ -43,6 +93,15 @@ class App extends Component {
           player1: "",
           player2: ""
         };
+
+        //after result is display message will go back to pending
+        setInterval(()=>{
+          this.setState({
+          result:"Waiting Results"
+          });
+        },3000)
+
+
       }
       else{
         console.log("this does not match");
@@ -53,6 +112,12 @@ class App extends Component {
           player1: "",
           player2: ""
         };
+
+        setInterval(()=>{
+          this.setState({
+          result:"Waiting Results"
+          });
+        },3000)
       }
       console.log("#39: both value changed");
 
@@ -62,41 +127,77 @@ class App extends Component {
   inputChange = event => {
     // Getting the value and name of the input which triggered the change
     var {name,value} = event.target;
-    // Updating the input's state
+    // Updating the input's state to be empty 
     this.setState({
       [name]: value,
       message:value
     });
   }
 
+  //function to run on click of submit button
+  //will send information to the server to recieve message
   sendMessage = event =>{
     event.preventDefault();
-    socket.emit('chat message',this.state.message);
-    console.log(this.state.message);
+
+    //sends info of message and player through socket through channel called 'chat message'  
+    socket.emit('chat message',{
+      msg:this.state.message,
+      player:event.target.getAttribute("name")
+    });
 
     var {name} = event.target;
-
-    this.choice[event.target.getAttribute("name")] = this.state.message;
 
     this.setState({
       message:"",
       [name]:""
     });
-    this.checkAction();
     
   }
 
+  //function that activates when user sends message msg is the data being received
   messageRecieve = msg =>{
     
-    this.setState({chat:[...this.state.chat, {msg:msg,key:Date.now()} ]});
+    //with the data recieved msg will be added to chat 
+    this.setState({chat:[...this.state.chat, {msg:msg.msg,key:Date.now()} ]});
+
+    // data of which player sent message will be saved locally to compare
+    this.choice[msg.player] = msg.msg;
+
     console.log(this.state.chat);
-    console.log("is this working?")
+    console.log("is this working?");
+
+    //everytime message is recieved will compare both string 
+    this.checkAction();
   }
 
   render() {
 
     return (
       <div>
+        <h1>Lobby User List</h1>
+        <ul>
+          {Object.keys(this.state.lobbyList).map( objectKey=>{
+            return (<li key={this.state.lobbyList[objectKey]}>{this.state.lobbyList[objectKey]} </li> )
+          })}
+        </ul>
+        <br></br>
+        <br></br>
+        <hr></hr>
+        <h1>Room User List</h1>
+        <ul>
+          {Object.keys(this.state.roomList).map( objectKey=>{
+            return (<li key={this.state.roomList[objectKey]}>{this.state.roomList[objectKey]} </li> )
+          })}
+        </ul>
+        <br></br>
+        <br></br>
+        <hr></hr>
+        <h2>User Name</h2>
+        <p>{this.state.name}</p>
+        <br></br>
+        <br></br>
+        <hr></hr>
+
         <p>{this.state.message}</p>
         <p>{this.state.result}</p>
         <ul id="messages">
