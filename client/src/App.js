@@ -22,6 +22,7 @@ const App = () =>
       <Nav />
       <Switch>
         <Route exact path="/" component={Login} />
+        <Route exact path="/signUp" component={Login} />
         <Route exact path="/lobby" component={Lobby} />
         <Route exact path="/room" component={Room} />
         <Route component={NoMatch} />

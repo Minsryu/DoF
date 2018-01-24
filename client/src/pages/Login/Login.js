@@ -1,15 +1,14 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
+import LoginForm from "../../components/LoginForm";
 
 
 class Login extends Component {
-  state = {
-  };
 
   render() {
     return (
       <div>
-        <h1>Login Page</h1>
+         <LoginForm />
       </div>
     );
   }

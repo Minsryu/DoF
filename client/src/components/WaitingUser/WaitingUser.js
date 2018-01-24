@@ -77,7 +77,7 @@ class WaitingUser extends Component {
                         <td
                           scope="row"
                           key={key}>
-                          <button data-label={entry}>Matcha</button>
+                          <button className="tbl-btn" data-label={entry}>Matcha</button>
                         </td>
                       )
                     }

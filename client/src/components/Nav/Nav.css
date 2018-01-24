@@ -1,10 +1,25 @@
+/*
+
+ dark: #292C44
+ red: #FF5349
+ white-ish: #F0F0F1
+ aqua: #18CDCA
+ periwinkle: #4F80E1
+
+ */
+
 body {
-  background: #AAAAAA;
+  background: #4F80E1;
   font-family: helvetica;
+  margin: 0;
+}
+
+.navWrap{
+  background: #292C44;
+  padding-bottom: 1rem;
 }
 
 .nav {
-  float: right;
   width: 100%;
   padding: 1.25em 0 1em 0;
 }
@@ -18,7 +33,8 @@ li {
 a {
   padding: 0.625em 1em; /* makes target area bigger */
   color: #333; /* rgba backup */
-  color: rgba(255,255,255, 0.8);
+  color: #18CDCA;
+  /* color: rgba(255,255,255, 0.8); */
   text-decoration: none;
   font-weight: bold;
   text-shadow: 0 1px 1px rgba(0,0,0, 0.3);
@@ -41,7 +57,7 @@ a:hover, a:focus {
 label {
   padding: 0.625em 1em; /* makes target area bigger */
   color: #333; /* rgba backup */
-  color: rgba(255,255,255, 0.8);
+  color: #18CDCA;
   text-decoration: none;
   font-weight: bold;
   text-shadow: 0 1px 1px rgba(0,0,0, 0.3);
@@ -144,11 +160,32 @@ label:hover, label:focus {
   transform: rotate(-45deg);
 }
 
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 599px) {
 
+  li {
+    margin: 0 0 0 0;
+    min-width: 33%;
+  }
+  .btn {
+    margin-left: 2rem;
+  }
+  .username {
+    display: none;
+  }
+
+}
+
+@media screen and (min-width: 600px) {
   .modal__inner {
     width: 90%;
     height: 90%;
     box-sizing: border-box;
   }
+}
+
+@media screen and (min-width: 900px) {
+}
+
+@media screen and (min-width: 1200px) {
+
 }

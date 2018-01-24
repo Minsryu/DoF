@@ -5,11 +5,11 @@ class Nav extends Component {
 
 
   renderNavs = () => {
-    if (window.location.pathname === "/") {
+    if (window.location.pathname === "/" || window.location.pathname === "/signUp") {
       return (
         <div className="NavWrap">
           <ul className="nav">
-            <li><label className="btn" for="modal-1">Rules</label></li>
+            <li><label className="btn" for="modal-1">About</label></li>
             <input className="modal-state" id="modal-1" type="checkbox" />
               <div className="modal">
                 <label className="modal__bg" for="modal-1"></label>
@@ -27,9 +27,18 @@ class Nav extends Component {
         <div className="NavWrap">
           <ul className="nav">
             <li className="username"><a href="#">USERNAME</a></li>
-            <li><i className="fa fa-user" aria-hidden="true"></i><a href="">Rules</a></li>
+            <li><label className="btn" for="modal-1">Rules</label></li>
+            <input className="modal-state" id="modal-1" type="checkbox" />
+              <div className="modal">
+                <label className="modal__bg" for="modal-1"></label>
+                <div className="modal__inner">
+                  <label className="modal__close" for="modal-1"></label>
+                  <h2>THESE THEM RULES</h2>
+                  <p>Rules go here!</p>
+                </div>
+              </div>
             <li><a href="/room">Find Game</a></li>
-            <li><a href="/">Logout</a></li>
+            <li className="logout-btn"><a href="/">Logout</a></li>
           </ul>
         </div>
       );
@@ -38,9 +47,18 @@ class Nav extends Component {
         <div className="NavWrap">
           <ul className="nav">
             <li className="username"><a href="#">USERNAME</a></li>
-            <li><a href="">Rules</a></li>
+            <li><label className="btn" for="modal-1">Rules</label></li>
+            <input className="modal-state" id="modal-1" type="checkbox" />
+              <div className="modal">
+                <label className="modal__bg" for="modal-1"></label>
+                <div className="modal__inner">
+                  <label className="modal__close" for="modal-1"></label>
+                  <h2>THESE THEM RULES</h2>
+                  <p>Rules go here!</p>
+                </div>
+              </div>
             <li><a href="/lobby">Quit Game</a></li>
-            <li><a href="/">Logout</a></li>
+            <li className="logout-btn"><a href="/">Logout</a></li>
           </ul>
         </div>
       );
@@ -49,8 +67,6 @@ class Nav extends Component {
 
 
   render() {
-
-    console.log(this.state);
 
     return (
 
