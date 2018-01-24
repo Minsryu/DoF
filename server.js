@@ -20,16 +20,54 @@ app.get("*", function(req, res) {
 //   console.log(`🌎 ==> Server now on port ${PORT}!`);
 // });
 
+var userList = {};
+var gameList = {};
+
 io.on('connection', function(socket){
 
-  console.log('a user connected');
-  socket.on('disconnect', function(){
-    console.log('user disconnected');
-  });
+  socket.on('enter room',function(room, newUser){
+
+    var object = newUser[Object.keys(newUser)[0]]
+    var name = object.Username + io.engine.clientsCount;
+    console.log(name);
+    socket.name = name;
+    socket.room = room;
+    
+    if(room == "lobby"){
+    userList[name] = object;
+    console.log("lobby: ");
+    console.log(userList);
+    io.emit('update '+room,userList);
+    }
+    else if(room == "game"){
+    gameList[name] = object;
+    console.log("game: added");
+    console.log(gameList);
+    io.emit('update '+room,gameList);
+
+    }
+
+    io.emit('test','Nav: this is working')
+  })
 
   socket.on('chat message', function(msg){
     // console.log('message: ' + msg);
     io.emit('chat message', msg)
+  });
+
+  console.log('a user connected');
+  socket.on('disconnect', function(){
+
+    if(socket.room == "lobby"){
+    delete userList[socket.name];
+    io.emit('update '+socket.room,userList);
+    }
+    else if(socket.room=="game"){
+
+    delete gameList[socket.name];
+    io.emit('update '+socket.room,userList);
+    }
+    
   });
 
 });

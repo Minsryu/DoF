@@ -13,7 +13,7 @@ import NoMatch from "./pages/NoMatch";
 // Import that NAV BBY.
 import Nav from "./components/Nav";
 
-const socket = window.io();
+// const socket = window.io();
 // let socket = io('http://localhost:3001');
 
 const App = () =>

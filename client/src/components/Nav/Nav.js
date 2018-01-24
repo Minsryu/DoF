@@ -1,8 +1,19 @@
 import React, { Component } from "react";
 import "./Nav.css";
+import io from 'socket.io-client';
+
+const socket = (window.location.href.indexOf("heroku")!==-1) ? window.io() : io.connect("http://localhost:3001");
 
 class Nav extends Component {
 
+
+  componentDidMount(){
+
+    socket.on('test',(msg)=>{
+
+      console.log(msg);
+    })
+  }
 
   renderNavs = () => {
     if (window.location.pathname === "/") {
