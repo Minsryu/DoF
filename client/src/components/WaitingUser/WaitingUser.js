@@ -34,6 +34,8 @@ class WaitingUser extends Component {
   }
 
 
+
+
   getInitialState = () => {
     return {
       data: this.state.data,
@@ -62,23 +64,23 @@ class WaitingUser extends Component {
                   {Object.keys(this.state.data[row]).map((entry, key)=> {
                     if (entry === "Id") {
                       return (
-                        <td
+                        <th
                           scope="row"
                           key={key}>
 
                           <button data-label={this.state.data[row][entry]}>Matcha</button>
 
-                        </td>
+                        </th>
                       )
                     }
                     else {
                       return (
-                        <td
+                        <th
                           scope="row"
                           key={key}
                           data-label={entry}>
                           {this.state.data[row][entry]}
-                        </td>
+                        </th>
                       )
                     }
 

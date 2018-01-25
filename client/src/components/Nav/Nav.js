@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 import "./Nav.css";
-import io from 'socket.io-client';
+import {socket} from "../../config/socket.js";
 
-const socket = (window.location.href.indexOf("heroku")!==-1) ? window.io() : io.connect("http://localhost:3001");
+
 
 class Nav extends Component {
 

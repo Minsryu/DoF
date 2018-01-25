@@ -32,18 +32,15 @@ import ult from '../../svg/diamond.svg';
 
 
 class playerOne extends Component {
+ 
 
   state = {
-    health: 3,
-    damageTaken: 0,
-    damage: 0,
-    pCharge: 3,
-    chargeUsed: 0,
-    charged: 0
+    
   }
 
   /* p1 HP */
   setHealth(amount) {
+
     this.setState({damageTaken: amount});
   }
 
@@ -51,18 +48,17 @@ class playerOne extends Component {
     this.setState({chargeUsed: amount});
   }
 
-
   render() {
         // HP logic
-        let bal = (this.state.health - this.state.damageTaken - this.state.damage)
-        let damageTakenPercent = (this.state.damageTaken / this.state.health * 100);
-        let damagePercent = (this.state.damage / this.state.health * 100);
+        let bal = (this.props.playerOne.health - this.props.playerOne.damageTaken - this.props.playerOne.damage)
+        let damageTakenPercent = (this.props.playerOne.damageTaken / this.props.playerOne.health * 100);
+        let damagePercent = (this.props.playerOne.damage / this.props.playerOne.health * 100);
         let balPercent = (100 - damageTakenPercent - damagePercent);
 
         // Pcharge logic
-        let currentCharge = (this.state.chargeUsed)
-        let chargeUsedPercent = (this.state.chargeUsed / this.state.pCharge * 100);
-        let chargedPercent = (this.state.charged / this.state.pCharge * 100);
+        let currentCharge = (this.props.playerOne.chargeUsed)
+        let chargeUsedPercent = (this.props.playerOne.chargeUsed / this.props.playerOne.pCharge * 100);
+        let chargedPercent = (this.props.playerOne.charged / this.props.playerOne.pCharge * 100);
         let currentChargePercent = (100 - chargeUsedPercent - chargedPercent);
 
   return (
@@ -91,10 +87,10 @@ class playerOne extends Component {
     </div>
     {/* Actions */}
     <div className="actions">
-        <img src={ult} className="icon ult" alt="ult" />
-        <img src={pCharge} className="icon charge" alt="charge" />
-        <img src={shield} className="icon shield" alt="shield" />
-        <img src={shoot} className="icon shoot" alt="shoot" />
+        <img src={ult} onClick = {(e)=>{this.props.sendChoice(e,"playerOne")}} className="icon ult" alt="ult" />
+        <img src={pCharge} onClick = {(e)=>{this.props.sendChoice(e,"playerOne")}} className="icon charge" alt="charge" />
+        <img src={shield} onClick = {(e)=>{this.props.sendChoice(e,"playerOne")}} className="icon shield" alt="shield" />
+        <img src={shoot} onClick = {(e)=>{this.props.sendChoice(e,"playerOne")}} className="icon shoot" alt="shoot" />
     </div>
     {/* HP */}
   </div>

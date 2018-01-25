@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import axios from "axios";
 import randomToken from 'random-token';
 import Validator from "validator";
-import io from 'socket.io-client';
+import {socket} from "../../config/socket.js";
 import "./LoginForm.css";
 
 //validate
@@ -10,7 +10,6 @@ import "./LoginForm.css";
 // Route correctly after the check is succesful.
 // Replace Alerts with DOM feedback
 
-const socket = window.io();
 
 class LoginForm extends Component {
 
@@ -76,7 +75,7 @@ class LoginForm extends Component {
 
   logAttempt = event => {
     event.preventDefault();
-    socket.emit('authentication', this.state.data);
+    socket.emit('authentication', this.state);
   }
 
 

@@ -29,7 +29,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 // Serve up static assets -- TODO: Change to build for deploy?
-app.use(express.static("public"));
+// app.use(express.static("public"));
 
 mongoose.Promise = Promise;
 
@@ -58,6 +58,7 @@ let userList = {};
 let gameList = {};
 
   require('socketio-auth')(io, {
+    
     authenticate: function(socket, data, callback){
 
       let username = data.username;
@@ -91,6 +92,8 @@ io.on('connection', function(socket){
     socket.name = name;
     socket.room = room;
 
+    socket.join(room);
+    
     if(room == "lobby"){
     userList[name] = object;
     console.log("lobby: ");
@@ -102,16 +105,37 @@ io.on('connection', function(socket){
     console.log("game: added");
     console.log(gameList);
     io.emit('update '+room,gameList);
+    
+      if(Object.keys(gameList).length==2){
 
+        var newroom = Object.keys(gameList)[0]+Object.keys(gameList)[1];
+        console.log(newroom);
+        io.to('game').emit('newroom',newroom);
+      }
     }
 
     io.emit('test','Nav: this is working')
   })
 
-  socket.on('chat message', function(msg){
-    // console.log('message: ' + msg);
-    io.emit('chat message', msg)
-  });
+  socket.on('switch room', (newroom)=>{
+
+    var oldroom = socket.room;
+    socket.leave(oldroom);
+    socket.join(newroom);
+    socket.room = newroom;
+    console.log(socket.name+" switched room to "+socket.room)
+    delete gameList[socket.name];
+
+  })
+
+  socket.on('send choice', function( player, choice){
+    console.log(player);
+    console.log(choice);
+    console.log(socket.room);
+    io.to(socket.room).emit('update choice',player,choice);
+  })
+
+
 
   console.log('a user connected');
   socket.on('disconnect', function(){
@@ -125,6 +149,9 @@ io.on('connection', function(socket){
     delete gameList[socket.name];
     io.emit('update '+socket.room,userList);
     }
+
+
+    console.log('a user disconnected');
 
   });
 
