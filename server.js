@@ -7,7 +7,7 @@ const io = require('socket.io')(http);
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 
-let User = require("./models/userModel");
+const User = require("./models/userModel");
 
 
 // Serve up static assets (usually on heroku)
@@ -39,7 +39,7 @@ mongoose.connect("mongodb://localhost/dualOfFate", {
 
 // singUp -- newUser
   app.post("/newUser", function(req, res){
-
+    console.log("req body", req.body);
     User.create(req.body)
       .then(function(dbUser){
         console.log("Added", JSON.stringify(dbUser));
@@ -77,13 +77,7 @@ let gameList = {};
       timeout:500000000,
 
       postAuthenticate(socket, data) {
-        let username = data.username;
-        let wins = data.wins;
-        let img = data.img;
-
-        console.log('username:', username);
-        console.log('wins:', wins);
-        console.log('img', img);
+        console.log(data)
       }
   });
 

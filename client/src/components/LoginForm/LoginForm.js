@@ -1,16 +1,13 @@
 import React, { Component } from "react";
 import axios from "axios";
 import randomToken from 'random-token';
-import validator from "validator";
-import io from 'socket.io-client'
+import Validator from "validator";
+import io from 'socket.io-client';
 import "./LoginForm.css";
 
-
-// Hook up input forms to whatever is sending user/pass to DB for check
-
+//validate
+//send data to DB
 // Route correctly after the check is succesful.
-
-
 // Replace Alerts with DOM feedback
 
 const socket = window.io();
@@ -18,14 +15,10 @@ const socket = window.io();
 class LoginForm extends Component {
 
   state = {
-    data: {
-        username: "",
-        password: "",
-        img: "",
-        isAuthenticated: false
-      },
-    loading: false,
-    errors: {}
+    username: "",
+    password: "",
+    img: "",
+    isAuthenticated: false
   }
 
   componentDidMount(){
@@ -49,17 +42,28 @@ class LoginForm extends Component {
     });
   }
 
-  onChange = e => this.setState({
-    data: { ...this.state.data, [e.target.name]: e.target.value } });
+  // onChange = e => {
+  // this.setState({
+  //   data: { [e.target.name]: e.target.value }
+  //   });
+  // }
 
- //NOTE: added data to this.data.state
-  onSignUp(event){
+  onChange = event => {
+    let value = event.target.value;
+    const name = event.target.name;
+    this.setState({
+      [name]: value
+    });
+  }
+
+  onSignUp = event => {
     event.preventDefault();
-    console.log("Sign up button pressed");
-    axios.post("/newUser", this.data.state).then(function(results){
-      console.log("Results:", results);
+    console.log("The state of things:", this.state);
+
+    axios.post("/newUser", this.state).then(results => {
       if (results.data.errmsg) {
         // TODO: THIS NEEDS TO BE A UI ELEMENT...
+        console.log(results.data.errmsg);
         alert("1. Username is taken. Please choose another");
       }
     }).catch(function(err){
@@ -70,22 +74,23 @@ class LoginForm extends Component {
 
   // Needs to make axios.
 
-  logAttempt(event){
+  logAttempt = event => {
     event.preventDefault();
-    socket.emit('authentication', this.data.state);
+    socket.emit('authentication', this.state.data);
   }
 
-  onSubmit = () => {
-    const errors = this.validate(this.data.state.data);
-    this.setState({ errors });
-    if (Object.keys(errors).length === 0) {
-      this.props.submit(this.state.data);
-    })
-  };
-  //
+
+  // onSubmit = () => {
+  //   const errors = this.validate(this.data.state.data);
+  //   this.setState({ errors });
+  //   if (Object.keys(errors).length === 0) {
+  //     this.props.submit(this.state.data);
+  //   }
+  // };
+  // //
   // validate = (data) => {
   //   const errors = {};
-  //   // if(!Validator.isEmail(data.email)) errors.email = "Invalid E-mail";
+  //   if(!Validator.isEmail(data.email)) errors.email = "Invalid E-mail";
   //   if(!data.password) errors.password = "Can't be blank";
   //   return errors;
   // }
@@ -104,16 +109,16 @@ class LoginForm extends Component {
 
 
   renderForm = () => {
-      const data = this.state;
+      let data = this.state;
       if (window.location.pathname === "/") {
         return (
           <div>
             <div className="login">
-              <input type="text" placesholder="Username" className="username"
-                value={data.username}
+              <input name="username" type="text" placesholder="Username" className="username"
+                value={this.state.username}
                 onChange={this.onChange} />
-              <input type="password" placeholder="Password" className="password"
-                value={data.password}
+              <input name="password" type="password" placeholder="Password" className="password"
+                value={this.state.password}
                 onChange={this.onChange} />
               <a href="/signUp" className="forgot">sign up?</a>
               <input type="submit" value="Sign In" onClick={this.logAttempt}/>
@@ -125,14 +130,14 @@ class LoginForm extends Component {
         return (
           <div>
             <div className="signUp">
-              <input type="text" placeholder="Username" className="username"
-                value={data.username}
+              <input name="username" type="text" placeholder="Username" className="username"
+                value={this.state.username}
                 onChange={this.onChange} />
-              <input type="text" placeholder="Profile Image (link)" className="imgLink"
-                value={data.img}
+              <input name="img" type="text" placeholder="Profile Image (link)" className="imgLink"
+                value={this.state.img}
                 onChange={this.onChange} />
-              <input type="password" placeholder="Password" className="password"
-                value={data.password}
+              <input name="password" type="password" placeholder="Password" className="password"
+                value={this.state.password}
                 onChange={this.onChange} />
               <a href="/" className="forgot">Already have an account?</a>
               <input type="submit" value="SignUp" onClick={this.onSignUp}/>

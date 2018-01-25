@@ -7,33 +7,20 @@ const userSchema = new Schema({
   username: {
     type: String,
     trim: true,
-    unique: true,
     required: "Username is Required"
   },
   password: {
     type: String,
     trim: true,
-    required: "Password is Required",
-    validate: [
-      function(input) {
-        return input.length >= 6;
-      },
-      "Password must be longer than 5 characters."
-    ]
+    required: "Password is Required"
   },
   img: {
     type: String,
-    trim: true,
-
+    trim: true
   },
   wins: {
     type: Number
-  },
-  token: {
-    type: String,
-    unique: true
   }
-
 });
 
 // This creates our model from the above schema, using mongoose's model method
