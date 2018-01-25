@@ -8,6 +8,7 @@ import {socket} from "../../config/socket.js";
 class WaitingUser extends Component {
 
   state = {
+    data:""
   }
 
   componentDidMount(){
@@ -26,7 +27,8 @@ class WaitingUser extends Component {
       })
     })
 
-    socket.on('update lobby', (userList)=>{
+    socket.on('updatelobby', (userList)=>{
+      console.log("this triggered")
       this.setState({data:userList});
       console.log(userList);
     })

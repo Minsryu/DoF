@@ -57,31 +57,6 @@ mongoose.connect("mongodb://localhost/dualOfFate", {
 let userList = {};
 let gameList = {};
 
-  require('socketio-auth')(io, {
-    
-    authenticate: function(socket, data, callback){
-
-      let username = data.username;
-      let password = data.password;
-
-      User.findOne({username: data.username,
-                     password: data.password},
-                   function(err, user) {
-                     if (err || !user) {
-                       console.log("No match found...");
-                       return callback(new Error("User not found"));
-                     }
-                       return callback(null, user.password == password);
-                   });
-      },
-
-      timeout:500000000,
-
-      postAuthenticate(socket, data) {
-        console.log(data)
-      }
-  });
-
 io.on('connection', function(socket){
 
   socket.on('enter room',function(room, newUser){
@@ -98,13 +73,15 @@ io.on('connection', function(socket){
     userList[name] = object;
     console.log("lobby: ");
     console.log(userList);
-    io.emit('update '+room,userList);
+    console.log(socket.room);
+    io.to('lobby').emit('updatelobby' , userList);
     }
     else if(room == "game"){
     gameList[name] = object;
     console.log("game: added");
     console.log(gameList);
-    io.emit('update '+room,gameList);
+    console.log(socket.room);
+    io.emit('update game',gameList);
     
       if(Object.keys(gameList).length==2){
 
@@ -156,6 +133,31 @@ io.on('connection', function(socket){
   });
 
 });
+
+  // require('socketio-auth')(io, {
+    
+  //   authenticate: function(socket, data, callback){
+
+  //     let username = data.username;
+  //     let password = data.password;
+
+  //     User.findOne({username: data.username,
+  //                    password: data.password},
+  //                  function(err, user) {
+  //                    if (err || !user) {
+  //                      console.log("No match found...");
+  //                      return callback(new Error("User not found"));
+  //                    }
+  //                      return callback(null, user.password == password);
+  //                  });
+  //     },
+
+  //     timeout:500000000,
+
+  //     postAuthenticate(socket, data) {
+  //       console.log(data)
+  //     }
+  // });
 
 http.listen(PORT, function(){
 	console.log(`🌎 ==> Server now on port ${PORT}!`);
