@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Redirect } from "react-router";
 import axios from "axios";
 import randomToken from 'random-token';
 import Validator from "validator";
@@ -55,27 +56,50 @@ class LoginForm extends Component {
     });
   }
 
+  lobbyPush = () => {
+    return(
+    < Redirect push to="/lobby" />
+    )
+  };
+
   onSignUp = event => {
     event.preventDefault();
     console.log("The state of things:", this.state);
-
-    axios.post("/newUser", this.state).then(results => {
-      if (results.data.errmsg) {
-        // TODO: THIS NEEDS TO BE A UI ELEMENT...
-        console.log(results.data.errmsg);
-        alert("1. Username is taken. Please choose another");
-      }
-    }).catch(function(err){
-      alert("2. Username is taken. Please choose another");
-      console.log("An error occured", err);
-    })
+    let user = this.state;
+    if (user.username === "" || user.password === ""){
+      alert("Please enter a username and password");
+    } else {
+      axios.post("/newUser", user).then(results => {
+        if (results.data.errmsg) {
+          // TODO: THIS NEEDS TO BE A UI ELEMENT...
+          console.log(results.data.errmsg);
+          alert("Username is taken. Please choose another");
+        } else if (!results.data.errmsg) {
+          localStorage.clear();
+          console.log(results);
+          window.localStorage.setItem("id", results.data._id);
+          window.localStorage.setItem("username", results.data.username);
+          // window.locaStorage.setItem("img", results.data.img);
+          window.location.href="/lobby";
+        }
+      }).catch(function(err){
+        alert("An error occured!");
+        console.log("An error occured", err);
+      })
+    }
   }
 
   // Needs to make axios.
 
   logAttempt = event => {
     event.preventDefault();
-    socket.emit('authentication', this.state);
+    // socket.emit('authentication', this.state);
+    let user = this.state;
+    if (this.state.username == "" || user.password == ""){
+      alert("Please enter a username and password");
+    } else {
+
+    }
   }
 
 

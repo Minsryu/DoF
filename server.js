@@ -6,6 +6,7 @@ const http = require('http').Server(app);
 const io = require('socket.io')(http);
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
+const randtoken = require("random-token");
 
 const User = require("./models/userModel");
 
@@ -39,7 +40,6 @@ mongoose.connect("mongodb://localhost/dualOfFate", {
 
 // singUp -- newUser
   app.post("/newUser", function(req, res){
-    console.log("req body", req.body);
     User.create(req.body)
       .then(function(dbUser){
         console.log("Added", JSON.stringify(dbUser));
@@ -54,8 +54,34 @@ mongoose.connect("mongodb://localhost/dualOfFate", {
 
 
 
+
 let userList = {};
 let gameList = {};
+
+  // require('socketio-auth')(io, {
+  //
+  //   authenticate: function(socket, data, callback){
+  //
+  //     let username = data.username;
+  //     let password = data.password;
+  //
+  //     User.findOne({username: data.username,
+  //                    password: data.password},
+  //                  function(err, user) {
+  //                    if (err || !user) {
+  //                      console.log("No match found...");
+  //                      return callback(new Error("User not found"));
+  //                    }
+  //                      return callback(null, user.password == password);
+  //                  });
+  //     },
+  //
+  //     timeout:500000000,
+  //
+  //     postAuthenticate(socket, data) {
+  //       console.log(data)
+  //     }
+  // });
 
 io.on('connection', function(socket){
 
@@ -68,7 +94,7 @@ io.on('connection', function(socket){
     socket.room = room;
 
     socket.join(room);
-    
+
     if(room == "lobby"){
     userList[name] = object;
     console.log("lobby: ");
@@ -80,9 +106,8 @@ io.on('connection', function(socket){
     gameList[name] = object;
     console.log("game: added");
     console.log(gameList);
-    console.log(socket.room);
-    io.emit('update game',gameList);
-    
+    io.emit('update '+room,gameList);
+
       if(Object.keys(gameList).length==2){
 
         var newroom = Object.keys(gameList)[0]+Object.keys(gameList)[1];
@@ -135,7 +160,7 @@ io.on('connection', function(socket){
 });
 
   // require('socketio-auth')(io, {
-    
+
   //   authenticate: function(socket, data, callback){
 
   //     let username = data.username;
