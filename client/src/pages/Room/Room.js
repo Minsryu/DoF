@@ -88,11 +88,11 @@ class Room extends Component {
     switch(this.state[player].choice){
       case "charge":
         console.log("case active!!")
-        
+
         this.setState({
           [player]: Object.assign(
-            {}, 
-            this.state[player], 
+            {},
+            this.state[player],
             {
               charge: this.state[player].charge + 1
             })
