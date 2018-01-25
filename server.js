@@ -34,10 +34,14 @@ app.use(bodyParser.json());
 
 mongoose.Promise = Promise;
 
-mongoose.connect("mongodb://localhost/dualOfFate", {
-		useMongoClient: true
-	});
+var databaseUri = "mongodb://localhost/dualOfFate"
 
+if(process.env.MONGODB_URI){
+  mongoose.connect(process.env.MONGODB_URI);
+}
+else{
+  mongoose.connect(databaseUri);
+}
 // singUp -- newUser
   app.post("/newUser", function(req, res){
     User.create(req.body)
