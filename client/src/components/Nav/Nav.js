@@ -37,7 +37,7 @@ class Nav extends Component {
       return (
         <div className="NavWrap">
           <ul className="nav">
-            <li className="username"><a href="#">USERNAME</a></li>
+            <li className="username"><a>USERNAME</a></li>
             <li><label className="btn" for="modal-1">Rules</label></li>
             <input className="modal-state" id="modal-1" type="checkbox" />
               <div className="modal">
@@ -57,7 +57,7 @@ class Nav extends Component {
       return (
         <div className="NavWrap">
           <ul className="nav">
-            <li className="username"><a href="#">USERNAME</a></li>
+            <li className="username"><a>USERNAME</a></li>
             <li><label className="btn" for="modal-1">Rules</label></li>
             <input className="modal-state" id="modal-1" type="checkbox" />
               <div className="modal">

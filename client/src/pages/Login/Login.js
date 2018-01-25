@@ -5,10 +5,14 @@ import LoginForm from "../../components/LoginForm";
 
 class Login extends Component {
 
+  submit = data => {
+    console.log(data);
+  };
+
   render() {
     return (
       <div>
-         <LoginForm />
+         <LoginForm submit={this.submit}/>
       </div>
     );
   }

@@ -4,6 +4,11 @@ const PORT = process.env.PORT || 3001;
 const app = express();
 const http = require('http').Server(app);
 const io = require('socket.io')(http);
+const mongoose = require("mongoose");
+const bodyParser = require("body-parser");
+
+let User = require("./models/userModel");
+
 
 // Serve up static assets (usually on heroku)
 if (process.env.NODE_ENV === "production") {
@@ -20,8 +25,67 @@ app.get("*", function(req, res) {
 //   console.log(`🌎 ==> Server now on port ${PORT}!`);
 // });
 
-var userList = {};
-var gameList = {};
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
+
+// Serve up static assets -- TODO: Change to build for deploy?
+app.use(express.static("public"));
+
+mongoose.Promise = Promise;
+
+mongoose.connect("mongodb://localhost/dualOfFate", {
+		useMongoClient: true
+	});
+
+// singUp -- newUser
+  app.post("/newUser", function(req, res){
+
+    User.create(req.body)
+      .then(function(dbUser){
+        console.log("Added", JSON.stringify(dbUser));
+        res.json(dbUser);
+    })
+    .catch(function(err){
+      console.log("error", JSON.stringify(err));
+      res.json(err);
+    });
+  });
+
+
+
+
+let userList = {};
+let gameList = {};
+
+  require('socketio-auth')(io, {
+    authenticate: function(socket, data, callback){
+
+      let username = data.username;
+      let password = data.password;
+
+      User.findOne({username: data.username,
+                     password: data.password},
+                   function(err, user) {
+                     if (err || !user) {
+                       console.log("No match found...");
+                       return callback(new Error("User not found"));
+                     }
+                       return callback(null, user.password == password);
+                   });
+      },
+
+      timeout:500000000,
+
+      postAuthenticate(socket, data) {
+        let username = data.username;
+        let wins = data.wins;
+        let img = data.img;
+
+        console.log('username:', username);
+        console.log('wins:', wins);
+        console.log('img', img);
+      }
+  });
 
 io.on('connection', function(socket){
 
@@ -32,7 +96,7 @@ io.on('connection', function(socket){
     console.log(name);
     socket.name = name;
     socket.room = room;
-    
+
     if(room == "lobby"){
     userList[name] = object;
     console.log("lobby: ");
@@ -67,7 +131,7 @@ io.on('connection', function(socket){
     delete gameList[socket.name];
     io.emit('update '+socket.room,userList);
     }
-    
+
   });
 
 });
