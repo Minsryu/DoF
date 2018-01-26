@@ -32,16 +32,16 @@ app.use(bodyParser.json());
 // Serve up static assets -- TODO: Change to build for deploy?
 // app.use(express.static("public"));
 
-mongoose.Promise = Promise;
+// mongoose.Promise = Promise;
 
-var databaseUri = "mongodb://localhost/dualOfFate"
+// var databaseUri = "mongodb://localhost/dualOfFate"
 
-if(process.env.MONGODB_URI){
-  mongoose.connect(process.env.MONGODB_URI);
-}
-else{
-  mongoose.connect(databaseUri);
-}
+// if(process.env.MONGODB_URI){
+//   mongoose.connect(process.env.MONGODB_URI);
+// }
+// else{
+//   mongoose.connect(databaseUri);
+// }
 
 // singUp -- newUser
   app.post("/newUser", function(req, res){
