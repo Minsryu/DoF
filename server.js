@@ -42,6 +42,7 @@ if(process.env.MONGODB_URI){
 else{
   mongoose.connect(databaseUri);
 }
+
 // singUp -- newUser
   app.post("/newUser", function(req, res){
     User.create(req.body)
